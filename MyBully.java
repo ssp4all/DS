@@ -4,6 +4,7 @@
 *********************/
 
 package bully;
+import static java.lang.Math.abs;
 import java.util.*;
 public class MyBully {
 
@@ -21,8 +22,10 @@ public class MyBully {
         {
             System.out.println("### MENU ###");
             System.out.println("1.Add new priority and status of a process ");
-            System.out.println("2.Select a process to send a msg");
+            System.out.println("2.Start Election");
             System.out.println("3.System Status");
+            System.out.println("4.Turn a process down");
+            System.out.println("4.Turn a process up");
             
             System.out.println("99.Exit");
             
@@ -45,34 +48,44 @@ public class MyBully {
                     //becoz main coordinator is down we need new coordinator so start new election
                     System.out.print("Please select a process to start election :");
                     int p = sc.nextInt();
-                    System.out.println("Election started by "+p+"... ");
+                    System.out.println("Election started by process "+p+"...");
                     
-                    int down = status.indexOf(0);//to find down process
+                    int down = status.indexOf(0);//to find down process index
 //                    System.out.println(down);
-                    int val = (int)priority.get(down);
+                    int val = (int)priority.get(down);//get priority of down process 
+                    int len = (int)priority.size();//current length of arraylist ie., after election staretd
+                    int m=0,n=0,count=0;
+                    int co=down,temp=0;
+
                     
-                    Iterator it = priority.iterator();
-                    int m=0;
-                    int co=0;
-                    co = down;
-                    while(m < (int)priority.size())
+                    while(m < len)
                     {
                         if( val < (int)priority.get(m))
                         {
-//                            if((int)status.get((int)priority.indexOf(m)-1) == 1)
-//                            {
-                                co = (int)priority.get(m);
-                                break;
-//                            }
-                            
+//                            System.out.println("Election msg send from "+p+" to "+(m+1));
+                            if((int)status.get(m) == 1)
+                            {
+                                temp = (int)priority.get(m);
+                            }
                         }
+                        if(temp>co)
+                            co=temp;
                         m++;
                     }    
+                    //msg transfer
+                    while(p<co)
+                    {
+                        while(count < abs(p-co))
+                        {
+                            if((int)status.get(p-1) == 1)
+                                System.out.println("Election msg send from "+p+" to "+(p+count+1));
+                            count++;    
+                        }
+                        count=0;
+                        p++;
+                    }
+                    //print new co-ordinator
                     System.out.println("New Co-ordinator is :"+(co));
-
-                    
-                    
-                    
                     break;
                 }
                 case 3:
@@ -90,6 +103,22 @@ public class MyBully {
                     System.out.println("Process "+(down+1)+" is down");//print down process
                     break;
                 }
+                case 4:
+                {
+                    System.out.print("Enter a process to turn down :");
+                    int d = sc.nextInt();
+                    status.set(d-1, 0);
+                    break;
+                }
+                case 5:
+                {
+                    
+                    System.out.print("Enter a process to turn up :");
+                    int u = sc.nextInt();
+                    status.set(u-1, 1);
+                    break;
+                    
+                }
                 case 99:
                 {
                     System.out.println("Thank you");
@@ -99,14 +128,5 @@ public class MyBully {
                     System.out.println("Invalid Input :(");
             }
         }while(ch != 99);
-        
-        
-        
-
-        
-        
-        
-        
     }
-    
 }
