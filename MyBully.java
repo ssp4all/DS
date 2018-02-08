@@ -12,9 +12,7 @@ public class MyBully {
         
         ArrayList priority = new ArrayList();
         ArrayList status = new ArrayList();
-        
-//        System.out.print("Enter number of processes : ");
-//        int n = sc.nextInt();
+
         Scanner sc = new Scanner(System.in);
         
         int ch=0;
@@ -25,7 +23,7 @@ public class MyBully {
             System.out.println("2.Start Election");
             System.out.println("3.System Status");
             System.out.println("4.Turn a process down");
-            System.out.println("4.Turn a process up");
+            System.out.println("5.Turn a process up");
             
             System.out.println("99.Exit");
             
@@ -49,20 +47,17 @@ public class MyBully {
                     System.out.print("Please select a process to start election :");
                     int p = sc.nextInt();
                     System.out.println("Election started by process "+p+"...");
-                    
+
                     int down = status.indexOf(0);//to find down process index
-//                    System.out.println(down);
                     int val = (int)priority.get(down);//get priority of down process 
                     int len = (int)priority.size();//current length of arraylist ie., after election staretd
                     int m=0,n=0,count=0;
                     int co=down,temp=0;
 
-                    
                     while(m < len)
                     {
                         if( val < (int)priority.get(m))
                         {
-//                            System.out.println("Election msg send from "+p+" to "+(m+1));
                             if((int)status.get(m) == 1)
                             {
                                 temp = (int)priority.get(m);
@@ -112,12 +107,10 @@ public class MyBully {
                 }
                 case 5:
                 {
-                    
                     System.out.print("Enter a process to turn up :");
                     int u = sc.nextInt();
                     status.set(u-1, 1);
                     break;
-                    
                 }
                 case 99:
                 {
