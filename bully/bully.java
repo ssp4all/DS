@@ -3,10 +3,9 @@
 * algo  : Bully's algorithm 
 *********************/
 
-package bully;
 import static java.lang.Math.abs;
 import java.util.*;
-public class MyBully {
+public class bully {
 
     public static void main(String[] args) {
         
@@ -121,5 +120,6 @@ public class MyBully {
                     System.out.println("Invalid Input :(");
             }
         }while(ch != 99);
+        sc.close();
     }
 }
